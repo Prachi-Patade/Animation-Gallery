@@ -49,7 +49,7 @@ Each animation opens in a Turtle window and also provides a Tkinter explanation 
 
 Example Screenshot:
 
-![Main Gallery](double-bloom-output.jpg)
+![Main Gallery](double-blooms-output.jpg)
 
 ![Main Gallery](bluehead-gilla-output.jpg)
 

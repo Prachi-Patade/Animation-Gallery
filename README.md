@@ -11,4 +11,5 @@ Features
 -Styled border layout
 
 Screenshot:
+
 ![Main Gallery](main-pg-output.jpg)

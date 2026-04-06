@@ -12,4 +12,25 @@ Features
 
 Screenshot:
 
+![Main Gallery](welcome-pg-output.jpg)
+
+2. Registration Form
+-Full Name and Email fields
+-Gender selection
+-Country dropdown
+-Programming skills selection
+-Validation for empty fields
+
+Screenshot:
+
+![Main Gallery](registartion-pg-output.jpg)
+
+3. Main Gallery Page
+Circular image buttons
+Search bar to filter items
+Attractive flower and tree thumbnails
+Smooth and consistent UI theme
+
+Screenshot:
+
 ![Main Gallery](main-pg-output.jpg)

@@ -1,4 +1,4 @@
-🌸Animation Gallery (Python Tkinter Project)
+🌸Animation Gallery (Python Tkinter Project):
 
 ✨Project Overview
 Animation Gallery is a Python-based Tkinter application that displays animated flower patterns, a welcome interface, a registration form, and a main gallery.

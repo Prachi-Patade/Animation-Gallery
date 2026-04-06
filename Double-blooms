@@ -1,0 +1,135 @@
+from turtle import *
+import colorsys as cs
+import tkinter as tk
+from tkinter import Toplevel
+# Screen setup
+screen = Screen()
+screen.title("Turtle Buttons Example")
+screen.setup(width=600, height=600)  # Adjust the height as needed
+bgcolor('black')
+tracer(100)
+# Function to close the turtle window
+def exit_program(x, y):
+    screen.bye()
+# Function to open the Tkinter window
+def open_tkinter_window(x, y):
+    # Create a new Tkinter window
+    t = Toplevel()
+    t.geometry("1370x700")
+    t.title("ANIMATION GALLERY")
+    t.config(bg="#46000D")
+   # Create a border frame around the content
+    border_frame = tk.Frame(t, bg="#DFBD69", padx=3, pady=3)
+    border_frame.pack(fill="both", expand=True, padx=3, pady=3)
+  # Create the content frame within the border frame
+    content_frame = tk.Frame(border_frame, bg="#46000D", width=1350, 
+height=680)
+    content_frame.pack(fill="both", expand=True, padx=3, pady=3)
+    def main():
+        # Label 1
+        l1 = tk.Label(content_frame, text="Installation of Python", fg="White", 
+width=20, height=1)
+        l1.pack(pady=(20, 10))
+        l1.config(font=("Edwardian Script ITC", 50, "bold"), bg="#46000D")
+    # Label 2
+        l2 = tk.Label(content_frame, text="Steps:", fg="White", anchor='w', width=5, 
+height=1)
+        l2.pack(pady=(10, 10), fill='x')
+        l2.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+    # Label 3 with installation instructions
+        l3 = tk.Label(content_frame,
+                      text="""1. Download Python Installer:
+Visit the official Python website.
+Navigate to the "Downloads" section and click on "Download Python [version 
+number]" for Windows.
+This will download an executable installer.
+2. Run the Installer:
+Locate the downloaded .exe file and double-click to run it.
+Important: Check the box that says "Add Python to PATH" before clicking "Install Now".
+This makes it easier to run Python from the command line.
+Choose "Install Now" to use the default settings, or select "Customize installation" if 
+you need specific options.
+3. Verify Installation:
+Open Command Prompt (type cmd in the Start menu and press Enter).
+Type python --version and press Enter.
+You should see the installed version of Python.""",
+                      fg="White",
+                      anchor='w',
+                      justify='left',
+                      wraplength=1200,
+                      bg="#46000D",
+                      font=("Edwardian Script ITC", 18, "bold"))
+       l3.pack(padx=20, pady=(10, 20), fill='both', expand=True)
+      # Create a frame for buttons
+        button_frame = tk.Frame(content_frame, bg="#46000D")
+        button_frame.pack(pady=20)
+        # Create frames for the buttons with border color
+        download_button_frame = tk.Frame(button_frame, bg="#DFBD69", padx=2, 
+pady=2)
+        download_button_frame.pack(side="left", padx=20)
+        exit_button_frame = tk.Frame(button_frame, bg="#DFBD69", padx=2, pady=2)
+        exit_button_frame.pack(side="left", padx=20)
+        # Exit Button
+        b1 = tk.Button(exit_button_frame, text="Exit", fg="White", width=10, height=1,
+                       font=("Edwardian Script ITC", 20, "bold"), bg="#46000D",
+                       borderwidth=0, highlightthickness=0, command=t.destroy)
+        b1.pack(padx=2, pady=2)
+        # Download Button
+        b2 = tk.Button(download_button_frame, text="Download file", fg="White", 
+width=15, height=1,
+                       font=("Edwardian Script ITC", 20, "bold"), bg="#46000D",
+                       borderwidth=0, highlightthickness=0)
+        b2.pack(padx=2, pady=2)
+    main()
+# Function for the "Use Code" button
+def use_code(x, y):
+    open_tkinter_window(x, y)
+# Common button color and border color
+button_color = "#46000D"
+border_color = "#DFBD69"
+# Function to draw button with border
+def draw_button_with_border(turtle_obj, x, y, border_size, button_color):
+    # Draw the border (slightly larger square)
+    turtle_obj.penup()
+    turtle_obj.goto(x, y)
+    turtle_obj.shape("square")
+    turtle_obj.shapesize(stretch_wid=border_size[0] + 0.1, stretch_len=border_size[1] 
++ 0.1)
+    turtle_obj.color(border_color)
+    turtle_obj.stamp()  # Stamp creates a fixed shape at the location   
+    # Draw the actual button
+    turtle_obj.shapesize(stretch_wid=border_size[0], stretch_len=border_size[1])
+    turtle_obj.color(button_color)
+# Draw the "Exit" button at the bottom left with border
+exit_button = Turtle()
+draw_button_with_border(exit_button, -150, -250, (2, 5), button_color)
+exit_button.onclick(exit_program)  # Bind the function to the click
+# Create a turtle for text on top of the "Exit" button
+exit_text = Turtle()
+exit_text.penup()
+exit_text.goto(-150, -210)  # Position text above the button
+exit_text.color("white")
+exit_text.hideturtle()
+exit_text.write("Exit", align="center", font=("Arial", 12, "bold"))
+# Draw the "Use Code" button at the bottom right with border
+use_code_button = Turtle()
+draw_button_with_border(use_code_button, 150, -250, (2, 5), button_color)
+use_code_button.onclick(use_code)  # Bind the function to the click
+# Create a turtle for text on top of the "Use Code" button
+use_code_text = Turtle()
+use_code_text.penup()
+use_code_text.goto(150, -210)  # Position text above the button
+use_code_text.color("white")
+use_code_text.hideturtle()
+use_code_text.write("Use Code", align="center", font=("Arial", 12, "bold"))
+# Start the drawing loop for the graphical pattern
+h = 0  # Initialize hue for color cycle
+for i in range(900):
+ c = cs.hsv_to_rgb(i / 6, 1, 1)
+ color(c)
+ circle(i / 3, 90)
+ lt(100)
+ lt(50)
+ right(10)
+hideturtle()
+done()

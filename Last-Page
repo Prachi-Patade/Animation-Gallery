@@ -1,0 +1,71 @@
+import tkinter as tk
+# Create main window
+t = tk.Tk()
+t.geometry("1370x700")
+t.title("ANIMATION GALLERY")
+t.config(bg="#46000D")
+# Create a border frame around the content
+border_frame = tk.Frame(t, bg="#DFBD69", padx=3, pady=3)
+border_frame.pack(fill="both", expand=True, padx=3, pady=3)
+# Create the content frame within the border frame
+content_frame = tk.Frame(border_frame, bg="#46000D", width=1350, height=680)
+content_frame.pack(fill="both", expand=True, padx=3, pady=3)
+def main():
+    # Label 1
+    l1 = tk.Label(content_frame, text="Installation of Python", fg="White", width=20, 
+height=1)
+    l1.pack(pady=(20, 10))
+    l1.config(font=("Edwardian Script ITC", 50, "bold"), bg="#46000D")
+# Label 2
+    l2 = tk.Label(content_frame, text="Steps:", fg="White", anchor='w', width=5, 
+height=1)
+    l2.pack(pady=(10, 10), fill='x')
+    l2.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+    # Label 3
+    l3 = tk.Label(content_frame,
+                  text="""1. Download Python Installer:
+Visit the official Python website.
+Navigate to the "Downloads" section and click on "Download Python [version 
+number]" for Windows.
+This will download an executable installer.
+2. Run the Installer:
+Locate the downloaded .exe file and double-click to run it.
+Important: Check the box that says "Add Python to PATH" before clicking "Install Now".
+This makes it easier to run Python from the command line.
+Choose "Install Now" to use the default settings, or select "Customize installation" if 
+you need specific options.
+3. Verify Installation:
+Open Command Prompt (type cmd in the Start menu and press Enter).
+Type python --version and press Enter.
+You should see the installed version of Python.""",
+                  fg="White",
+                  anchor='w',
+                  justify='left', # Align text to the left
+                  wraplength=1200, # Set the maximum width of the text before wrapping
+                  bg="#46000D",
+                  font=("Edwardian Script ITC", 18, "bold")) # Adjust font size if needed
+    l3.pack(padx=20, pady=(10, 20), fill='both', expand=True)
+    # Create a frame for buttons
+    button_frame = tk.Frame(content_frame, bg="#46000D")
+    button_frame.pack(pady=20)
+    # Create frames for the buttons with border color
+    login_button_frame = tk.Frame(button_frame, bg="#DFBD69", padx=1, pady=1) #
+Border color for Login button
+    login_button_frame.pack(side="left", padx=10)
+    exit_button_frame = tk.Frame(button_frame, bg="#DFBD69", padx=1, pady=1) # 
+Border color for Exit button
+    exit_button_frame.pack(side="left", padx=10)
+    # Exit Button with border color
+    b1 = tk.Button(exit_button_frame, text="Exit", fg="White", width=5, height=1,
+                   font=("Edwardian Script ITC", 20, "bold"), bg="#46000D",
+                   borderwidth=0, highlightthickness=0, command=t.destroy) # Remove 
+default border and set exit command
+    b1.pack(padx=1, pady=1)
+    # Download Button with border color
+    b2 = tk.Button(login_button_frame, text="Download file", fg="White", width=12, 
+height=1,
+                   font=("Edwardian Script ITC", 20, "bold"), bg="#46000D",
+                   borderwidth=0, highlightthickness=0) # Remove default border
+    b2.pack(padx=0, pady=0)
+main()
+t.mainloop()

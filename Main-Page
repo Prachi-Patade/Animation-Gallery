@@ -1,0 +1,213 @@
+import tkinter as tk
+from PIL import Image, ImageDraw, ImageTk
+def create_circle(canvas, x, y, r, **kwargs):
+    """Draw a circle on the canvas."""
+    return canvas.create_oval(x - r, y - r, x + r, y + r, **kwargs)
+def create_circular_image(file_path, size):
+    """Load an image and crop it to a circle."""
+    try:
+        img = Image.open(file_path).resize((size, size), Image.LANCZOS)
+        mask = Image.new('L', (size, size), 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0, size, size), fill=255) 
+        circular_img = Image.new('RGBA', (size, size))
+        circular_img.paste(img, (0, 0), mask)
+        return ImageTk.PhotoImage(circular_img)
+    except Exception as e:
+        print(f"Error loading image from {file_path}: {e}")
+        return None
+def search_buttons():
+    """Filter button visibility based on the search entry."""
+    search_term = search_entry.get().lower()
+    for btn_name, btn in button_map.items():
+        if search_term in btn_name.lower():
+            btn.place(relx=0.5, rely=0.5, anchor='center')  # Show the button
+        else:
+            btn.place_forget()  # Hide the button
+# Create main window
+t = tk.Tk()
+t.geometry("1370x700")
+t.title("ANIMATION GALLERY")
+t.config(bg="#46000D")
+# Create a border frame around the content
+border_frame = tk.Frame(t, bg="#DFBD69", padx=3, pady=3)
+border_frame.pack(fill="both", expand=True, padx=3, pady=3)
+#Create the content frame within the border frame
+content_frame = tk.Frame(border_frame, bg="#46000D", width=1350, height=680)
+content_frame.pack(fill="both", expand=True, padx=3, pady=3)
+# Title Label
+l1 = tk.Label(content_frame, text="Animation Gallery", fg="White", width=20, 
+height=1)
+l1.pack(pady=(20, 10))
+l1.config(font=("Edwardian Script ITC", 55, "bold"), bg="#46000D")
+# Frame for search bar
+search_frame = tk.Frame(content_frame, bg="#46000D")
+search_frame.pack(pady=(0, 10))
+# Search Label
+search_label = tk.Label(search_frame, text="Search", fg="White", bg="#46000D", 
+font=("Edwardian Script ITC", 35, "bold"))
+search_label.pack(side=tk.LEFT)
+# Frame for search entry with border
+entry_frame = tk.Frame(search_frame, bd=3, relief="groove", bg="#DFBD69")  # 
+Frame for border
+entry_frame.pack(side=tk.LEFT, padx=(0, 10))
+# Search Entry
+search_entry = tk.Entry(entry_frame, bg="#46000D", font=("Edwardian Script ITC", 
+35), width=40, bd=0)
+search_entry.pack()
+# Steps Label
+l2 = tk.Label(content_frame, text="Lovely Flowers....", fg="White", anchor='w', 
+width=15, height=1)
+l2.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l2.pack(anchor='w', padx=(10, 0), pady=(10, 10))  # Pack below the search bar, 
+anchored to the left
+# Load and resize images
+images = [
+    ("C:/Users/amisha/Desktop/Animation project/double blooms img .png", "Double 
+Blooms"),
+    ("C:/Users/amisha/Desktop/Animation project/bluehead gilla img.py", "Bluehead 
+Gilla"),
+    ("C:/Users/amisha/Desktop/Animation project/floral img.jpg", "Floral Flower"),
+    ("C:/Users/amisha/Desktop/Animation project/yellow sunflower img.jpg", "Yellow 
+Sunflower"),
+    ("C:/Users/amisha/Desktop/Animation project/poppy img.py", "Poppy Flower"),
+    ("C:/Users/amisha/Desktop/Animation project/conflower img.py", "Cornflower"),
+    ("C:/Users/amisha/Desktop/Animation project/Dancing circle img.py","Dancing 
+Circle"),
+    ("C:/Users/amisha/Desktop/Animation project/iiris img.py","Iiris Flower"),
+    ("C:/Users/amisha/Desktop/Animation project/orange sunflower img.py","Orange 
+Sunflower"),
+]
+button_map = {}  # Dictionary to hold buttons and their names
+canvas_positions = [(15, 280), (15, 370), (450, 280), (450, 370), (900, 280), (900, 
+370),
+                    (15, 470), (450, 470), (900, 470)]
+# Store icons to avoid garbage collection
+icons = []
+for (img_path, btn_name), (x, y) in zip(images, canvas_positions):
+    icon = create_circular_image(img_path, 80)
+    icons.append(icon)  # Keep a reference to the icon
+    # Create a canvas for the button icon
+    canvas = tk.Canvas(content_frame, width=80, height=80, bg="#46000D", 
+highlightthickness=0)
+    canvas.place(x=x, y=y)
+  # Draw a circular shape on the canvas
+    create_circle(canvas, 40, 40, 40, fill="white")
+    if icon:
+        canvas.create_image(40, 40, image=icon)
+# Create a button
+    btn = tk.Button(content_frame,
+                    text=btn_name,
+                    bg="#46000D",
+                    fg="white",
+                    font=("Edwardian Script ITC", 30, "bold"),
+                    bd=0,
+                    command=lambda name=btn_name: print(f"{name} Button Clicked"))
+    btn.place(x=x + 100, y=y)
+    button_map[btn_name] = btn  # Store button in the dictionary
+# Steps Label positioned below the last button
+last_button_y = canvas_positions[-1][1] + 100  # Adjust the y position
+l3 = tk.Label(content_frame, text="Trending Trees and more....", fg="White", 
+anchor='w', width=15, height=1)
+l3.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l3.place(x=10, y=last_button_y)  # Place it below the last button
+# Load the image for the first button and create a circular version
+button_image_path = "C:/Users/amisha/Desktop/Animation project/cherry bloosam 
+img.jpg"
+button_image = create_circular_image(button_image_path, 150)  # Adjust size as 
+needed
+# Create the first button with an image in a rectangular shape
+B1 = tk.Button(content_frame, image=button_image, compound="top",
+               width=150, height=200, bg="#46000D", bd=0)
+B1.place(x=15, y=last_button_y + 45)  # Position it below the "Trending" label
+# Label for the first button
+l4 = tk.Label(content_frame, text="Cherry Bloosam", fg="White", anchor='w', 
+width=15, height=1)
+l4.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l4.place(x=15, y=last_button_y + 200)  # Place it below the first button
+# Load the image for the second button and create a circular version
+button_image_path_2 = "C:/Users/amisha/Desktop/Animation project/sugar maple 
+img.py"  # Update with your image path
+button_image_2 = create_circular_image(button_image_path_2, 150)  # Adjust size as
+needed
+# Create the second button with an image in a rectangular shape
+B2 = tk.Button(content_frame, image=button_image_2, compound="top",
+               width=150, height=200, bg="#46000D", bd=0)
+B2.place(x=200, y=last_button_y + 45)  # Position it next to the first button
+# Label for the second button
+l5 = tk.Label(content_frame, text="Sugar Maple", fg="White", anchor='w', width=15, 
+height=1)
+l5.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l5.place(x=200, y=last_button_y + 200)  # Place it below the second button
+# Load the image for the first button and create a circular version
+button_image_path_3 = "C:/Users/amisha/Desktop/Animation project/red maple 
+img.py"
+button_image_3 = create_circular_image(button_image_path_3, 150)  # Adjust size as
+needed
+# Create the first button with an image in a rectangular shape
+B3 = tk.Button(content_frame, image=button_image_3, compound="top",
+width=150, height=200, bg="#46000D", bd=0)
+B3.place(x=400, y=last_button_y + 45)  # Position it below the "Trending" label
+# Label for the first button
+l6= tk.Label(content_frame, text="Red Maple", fg="White", anchor='w', width=15, 
+height=1)
+l6.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l6.place(x=400, y=last_button_y + 200)  # Place it below the first button
+# Load the image for the second button and create a circular version
+button_image_path_4 = "C:/Users/amisha/Desktop/Animation project/japenese 
+snowbell img.py"  # Update with your image path
+button_image_4 = create_circular_image(button_image_path_4, 150)  # Adjust size as
+needed
+# Create the second button with an image in a rectangular shape
+B4= tk.Button(content_frame, image=button_image_4, compound="top",
+width=150, height=200, bg="#46000D", bd=0)
+B4.place(x=600, y=last_button_y + 45)  # Position it next to the first button
+# Label for the second button
+l7 = tk.Label(content_frame, text="Japenese Snowbell", fg="White", anchor='w', 
+width=15, height=1)
+l7.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l7.place(x=600, y=last_button_y + 200)  # Place it below the second button
+#load the image for the second button and create a circular version
+button_image_path_5 = "C:/Users/amisha/Desktop/Animation project/red spiral 
+img.py"  # Update with your image path
+button_image_5 = create_circular_image(button_image_path_5, 150)  # Adjust size as
+needed
+# Create the second button with an image in a rectangular shape
+B5 = tk.Button(content_frame, image=button_image_5, compound="top",
+width=150, height=200, bg="#46000D", bd=0)
+B5.place(x=800, y=last_button_y + 45)  # Position it next to the first button
+# Label for the second button
+l8 = tk.Label(content_frame, text="Red Spiral", fg="White", anchor='w', width=15, 
+height=1)
+l8.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l8.place(x=800, y=last_button_y + 200)  # Place it below the second button
+#load the image for the second button and create a circular version
+button_image_path_6 = "C:/Users/amisha/Desktop/Animation project/dark beauty 
+img.py"  # Update with your image path
+button_image_6 = create_circular_image(button_image_path_6, 150)  # Adjust size as
+needed
+# Create the second button with an image in a rectangular shape
+B6= tk.Button(content_frame, image=button_image_6, compound="top",
+width=150, height=200, bg="#46000D", bd=0)
+B6.place(x=1000, y=last_button_y + 45)  # Position it next to the first button
+# Label for the second button
+l9= tk.Label(content_frame, text="Dark Beauty", fg="White", anchor='w', width=15, 
+height=1)
+l9.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l9.place(x=1000, y=last_button_y + 200)  # Place it below the second button size as 
+needed
+# Load the image for the second button and create a circular version
+button_image_path_7 = "C:/Users/amisha/Desktop/Animation project/rainbow spirL 
+IMG.py"  # Update with your image path
+button_image_7 = create_circular_image(button_image_path_7, 150)  # Adjust size as
+needed
+# Create the second button with an image in a rectangular shape
+B7= tk.Button(content_frame, image=button_image_7, compound="top",
+width=150, height=200, bg="#46000D", bd=0)
+B7.place(x=1200, y=last_button_y + 45)  # Position it next to the first button
+# Label for the second button
+l10 = tk.Label(content_frame, text="Rainbow Spiral", fg="White", anchor='w', 
+width=15, height=1)
+l10.config(font=("Edwardian Script ITC", 35, "bold"), bg="#46000D")
+l10.place(x=1200, y=last_button_y + 200)  # Place it below the second button
+t.mainloop()

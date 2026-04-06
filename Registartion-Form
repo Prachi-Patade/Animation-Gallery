@@ -1,0 +1,156 @@
+import tkinter as tk
+from tkinter import Radiobutton, IntVar, StringVar, Checkbutton, Entry, Label, 
+Button, Frame, OptionMenu
+import tkinter.messagebox
+# Initialize the main window
+t = tk.Tk()
+t.geometry("1370x700")
+t.title("ANIMATION GALLERY")
+t.config(bg="#46000D")
+# Create a border frame around the content
+border_frame = Frame(t, bg="#DFBD69", padx=3, pady=3)
+border_frame.pack(fill="both", expand=True, padx=3, pady=3)
+# Create the content frame within the border frame
+content_frame = Frame(border_frame, bg="#46000D", width=1350, 
+height=680)
+content_frame.pack(fill="both", expand=True, padx=3, pady=3)
+def open_registration_form():
+    # Create a new window for the registration form
+    registration_window = tk.Toplevel(t)
+    registration_window.geometry("500x500")
+    registration_window.title("Registration Form")
+    registration_window.config(bg="#46000D")
+    # Create a border frame around the content
+    border_frame = Frame(registration_window, bg="#DFBD69", padx=3, 
+pady=3)
+    border_frame.pack(fill="both", expand=True, padx=3, pady=3)
+    # Create the content frame within the border frame
+    registration_frame = Frame(border_frame, bg="#46000D", width=490, 
+height=490)
+    registration_frame.pack(fill="both", expand=True, padx=3, pady=3)   
+    def vd():
+        name = entry_1.get()
+        email = entry_2.get()
+        country = c.get()
+        programming = var2.get()
+        gender = var.get()
+        if name == "" or email == "" or country == "Select your country" or 
+programming == 0 or gender == 0:
+            tkinter.messagebox.showinfo("Invalid Message Alert", "Fields cannot be 
+left empty!")
+        else:
+            tkinter.messagebox.showinfo("Success Message", "Successfully 
+Registered!")
+    # Registration Form Elements
+    l1 = Label(registration_frame, text="Registration Form", width=15, 
+fg="white", font=("Edwardian Script ITC", 40, "bold"), bg="#46000D")
+    l1.pack(pady=(20, 10))
+    # Full Name Label and Entry
+    l2 = Label(registration_frame, text="Full Name", width=10, fg="white", 
+font=("Monotype Corsiva", 12, "bold"), bg="#46000D")
+    l2.place(x=100, y=130)
+    entry_frame_1 = Frame(registration_frame, bg="#DFBD69", padx=1, 
+pady=1)
+    entry_frame_1.place(x=220, y=130)
+    entry_1 = Entry(entry_frame_1, width=30, bg="#46000D", fg="white", 
+relief="flat")
+    entry_1.pack()
+    # Email Label and Entry
+    l3 = Label(registration_frame, text="Email", width=10, fg="white", 
+font=("Monotype Corsiva", 12, "bold"), bg="#46000D")
+    l3.place(x=100, y=180)
+    entry_frame_2 = Frame(registration_frame, bg="#DFBD69", padx=1, 
+pady=1)
+    entry_frame_2.place(x=220, y=180)
+    entry_2 = Entry(entry_frame_2, width=30, bg="#46000D", fg="white", 
+relief="flat")
+    entry_2.pack()
+    # Gender Label and RadioButtons
+    l4 = Label(registration_frame, text="Gender", width=10, fg="white", 
+font=("Monotype Corsiva", 12, "bold"), bg="#46000D")
+    l4.place(x=100, y=230)
+    var = IntVar()
+    rb_frame_1 = Frame(registration_frame, bg="#DFBD69", padx=1, pady=1)
+    rb_frame_1.place(x=220, y=230)
+    rb1 = Radiobutton(rb_frame_1, text="Male", padx=5, variable=var, value=1, 
+bg="#46000D", fg="white", selectcolor="#46000D", relief="flat")
+    rb1.pack(side="left")
+    rb_frame_2 = Frame(registration_frame, bg="#DFBD69", padx=1, pady=1)
+    rb_frame_2.place(x=290, y=230)
+    rb2 = Radiobutton(rb_frame_2, text="Female", padx=20, variable=var, 
+value=2, width=3, bg="#46000D", fg="white", selectcolor="#46000D", 
+relief="flat")
+    rb2.pack(side="left")
+    # Country Label and OptionMenu
+    l4 = Label(registration_frame, text="Country", width=10, fg="white", 
+font=("Monotype Corsiva", 12, "bold"), bg="#46000D")
+    l4.place(x=100, y=280)
+    list1 = ["Canada", "India", "UK", "Nepal", "Iceland", "South Africa"]
+    c = StringVar()
+    c.set("Select your country")
+    option_frame = Frame(registration_frame, bg="#DFBD69", padx=1, pady=1)
+    option_frame.place(x=220, y=280)
+    droplist = OptionMenu(option_frame, c, *list1)
+    droplist.config(width=15, bg="#46000D", fg="white", highlightthickness=0, 
+relief="flat")
+    droplist.pack()
+    # Programming Label and Checkbuttons
+    l5 = Label(registration_frame, text="Programming", width=10, fg="white", 
+font=("Monotype Corsiva", 12, "bold"), bg="#46000D")
+    l5.place(x=100, y=330)
+    check_frame_1 = Frame(registration_frame, bg="#DFBD69", padx=1, 
+pady=1)
+    check_frame_1.place(x=220, y=330)
+    var1 = IntVar()
+    check1 = Checkbutton(check_frame_1, text="C++", variable=var1, 
+bg="#46000D", fg="white", selectcolor="#46000D", relief="flat")
+    check1.pack(side="left")
+    check_frame_2 = Frame(registration_frame, bg="#DFBD69", padx=1, 
+pady=1)
+    check_frame_2.place(x=290, y=330)
+    var2 = IntVar()
+    check2 = Checkbutton(check_frame_2, text="Python", variable=var2, 
+bg="#46000D", fg="white", selectcolor="#46000D", relief="flat")
+    check2.pack(side="left")
+    # Submit Button
+    button_frame = Frame(registration_frame, bg="#DFBD69", padx=5, pady=5)
+    button_frame.place(x=200, y=380)
+    b3 = Button(button_frame, text="Submit", width=10, font=("Monotype 
+Corsiva", 15, "bold"), bg="#46000D", fg="white", command=vd, relief="flat")
+    b3.pack()
+def main():
+    # Welcome Page Setup
+    l1 = tk.Label(content_frame, text="Welcome to our \n Animation gallery", 
+fg="White", width=25, height=2)
+    l1.pack(padx=1, pady=50)
+    l1.config(font=("Edwardian Script ITC", 70, "bold"), bg="#46000D")   
+    l2 = tk.Label(content_frame, text="To get\nStart", fg="White", width=15, 
+height=2)
+    l2.pack(padx=0, pady=30)
+    l2.config(font=("Edwardian Script ITC", 40, "bold"), bg="#46000D")
+    # Create a frame for buttons
+    button_frame = tk.Frame(content_frame, bg="#46000D")
+    button_frame.pack(pady=50)
+    # Create frames for the buttons with border color
+    login_button_frame = tk.Frame(button_frame, bg="#DFBD69", padx=1, 
+pady=1)  # Border color for Login button
+    login_button_frame.pack(side="left", padx=10)
+    exit_button_frame = tk.Frame(button_frame, bg="#DFBD69", padx=1, 
+pady=1)  # Border color for Exit button
+    exit_button_frame.pack(side="left", padx=10)
+    # Login Button with border color
+    b1 = tk.Button(login_button_frame, text="Login", fg="White", width=8, 
+height=1,
+                   font=("Edwardian Script ITC", 20, "bold"), bg="#46000D",
+                   borderwidth=0, highlightthickness=0, 
+command=open_registration_form)  # Open registration form on click
+    b1.pack(padx=1, pady=1)
+    # Exit Button with border color
+    b2 = tk.Button(exit_button_frame, text="Exit", fg="White", width=5, 
+height=1,
+                   font=("Edwardian Script ITC", 20, "bold"), bg="#46000D",
+                   borderwidth=0, highlightthickness=0, command=t.destroy)  # 
+Close the main window
+    b2.pack(padx=1, pady=1)
+main()
+t.mainloop()
